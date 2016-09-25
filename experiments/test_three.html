@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+
+  <style>
+    html, body {
+      overflow: hidden;
+    }
+    #page {
+      width: 600px;
+      height: 600px;
+      position: absolute;
+      display: block;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      background: #c653c6;
+    }
+    #text {
+      color: #c653c6;
+      position: absolute;
+      top: 600px;
+    }
+    body {
+      z-index: 0;
+      background: rgba(96, 32, 96, 0.8)
+    }
+    #calibration {
+      position: absolute;
+      top: -1px;
+      display: block;
+      width: 1px;
+      height: 1px;
+    }
+  </style>
+</head>
+<body>
+  <svg id="calibration"></svg>
+  <div id="page">&nbsp;</div>
+  <h1 id="text"></h1>
+  <script>
+    //vertex distance classification
+
+    var p = document.getElementById("page");
+    var last_touches;
+
+    var OBJECTS = [
+      //[[first point distance bounds], [second point distance bounds], ... ]
+      //[[250, 350], [400, 520]], //3 points
+      [[280, 305], [295, 325], [420,450]], //4 points, squareish
+    ];
+    var OBJECT_NAMES = ["TEST_ONE", "TEST TWO"]
+
+    console.log(new Date(), screen.availWidth, screen.availHeight, window.devicePixelRatio, calibration.screenPixelToMillimeterX, calibration.screenPixelToMillimeterY);
+
+    MAX_DISTANCE = 600;
+
+    function distance_between_points(p1, p2) {
+        return Math.abs(Math.sqrt((p1[0] - p2[0]) * (p1[0] - p2[0]) + (p1[1] - p2[1]) * (p1[1] - p2[1]))) * calibration.screenPixelToMillimeterX;
+    }
+
+    function sort_by_distance(location, arrayOfPoints) {
+        arrayOfPoints.sort(function (a, b) {
+            a.distance = distance_between_points(location, a);
+            b.distance = distance_between_points(location, b);
+
+            return a.distance - b.distance;
+        });
+
+        return arrayOfPoints;
+    }
+
+    function classify_distance(dst){
+      // The theroy is that with a fixed set of vertices in a grid, or just a fixed set of vertices in general,
+      // We can classify each set of vertices as one type of distance.
+
+      // Return early for out of bounds.
+      if (dst < 30){ return  ''}
+      if (dst > 120){ return ''}
+
+      if (dst < 45){               return 'A' }
+      if (dst > 50 && dst < 65){   return 'B' }
+      if (dst > 70 && dst < 90){   return 'C' }
+      if (dst > 90 && dst < 100){  return 'D' }
+      if (dst > 110 && dst < 120){ return 'E' }
+
+      console.warn("Distance was not in any bound", dst);
+      return ''
+    }
+
+    var process_touches = function(evt){
+      //console.log('x')
+      last_touches = evt.touches;
+      var touch_map = [];
+      for (var i=0, l=evt.touches.length; i < l; i++){
+        touch_map.push([evt.touches[i].screenX, evt.touches[i].screenY, evt.touches[i].identifier]);
+      }
+      //console.log(evt.touches.length, touch_map, calibration.screenPixelToMillimeterX);
+
+      touch_map.sort(function(a, b){
+        return a[2] - b[2]
+      });
+      var vertices = {};
+      for (var i=0, l=evt.touches.length; i < l; i++){
+        for (var j=i+1; j < l; j++) {
+          let key = 'v' + touch_map[i][2] + 'v' + touch_map[j][2];
+          let distance = distance_between_points(touch_map[i], touch_map[j]);
+          let classified = classify_distance(distance);
+          if (classified) {
+            vertices[key] = classified;
+          }
+        }
+      }
+      console.log(vertices);
+
+      let obj_key = [];
+      for(let key in vertices){
+        obj_key.push(vertices[key])
+      }
+      obj_key = obj_key.sort().join("");
+      console.log('obj key', obj_key);
+    };
+
+    p.addEventListener("touchstart", function(evt){
+      process_touches(evt)
+    }, false);
+    p.addEventListener("touchmove", function(evt){
+      //process_touches(evt);
+    }, false);
+    p.addEventListener("touchend", function(evt){
+      process_touches(evt);
+    })
+  </script>
+</body>
+</html>

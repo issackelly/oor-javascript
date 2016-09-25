@@ -1,0 +1,147 @@
+<html>
+<head>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+
+  <style>
+    html, body {
+      overflow: hidden;
+    }
+    #page {
+      width: 600px;
+      height: 600px;
+      position: absolute;
+      display: block;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      background: #c653c6;
+    }
+    #text {
+      color: #c653c6;
+      position: absolute;
+      top: 600px;
+    }
+    body {
+      z-index: 0;
+      background: rgba(96, 32, 96, 0.8)
+    }
+    #calibration {
+      position: absolute;
+      top: -1px;
+      display: block;
+      width: 1px;
+      height: 1px;
+    }
+  </style>
+</head>
+<body>
+  <svg id="calibration"></svg>
+  <div id="page">&nbsp;</div>
+  <h1 id="text"></h1>
+  <script>
+    //Point distance based logging.
+    var p = document.getElementById("page");
+    var last_touches;
+
+    var OBJECTS = [
+      //[[first point distance bounds], [second point distance bounds], ... ]
+      //[[250, 350], [400, 520]], //3 points
+      [[280, 305], [295, 325], [420,450]], //4 points, squareish
+    ];
+    var OBJECT_NAMES = ["TEST_ONE", "TEST TWO"]
+
+    console.log(new Date(), screen.availWidth, screen.availHeight, window.devicePixelRatio, calibration.screenPixelToMillimeterX, calibration.screenPixelToMillimeterY);
+
+    MAX_DISTANCE = 600;
+
+    function distance_between_points(p1, p2) {
+        return Math.abs(Math.sqrt((p1[0] - p2[0]) * (p1[0] - p2[0]) + (p1[1] - p2[1]) * (p1[1] - p2[1]))) * calibration.screenPixelToMillimeterX;
+    }
+
+    function sort_by_distance(location, arrayOfPoints) {
+        arrayOfPoints.sort(function (a, b) {
+            a.distance = distance_between_points(location, a);
+            b.distance = distance_between_points(location, b);
+
+            return a.distance - b.distance;
+        });
+
+        return arrayOfPoints;
+    }
+    var process_touches = function(evt){
+      //console.log('x')
+      last_touches = evt.touches;
+      var touch_map = [];
+      for (var i=0, l=evt.touches.length; i < l; i++){
+        touch_map.push([evt.touches[i].screenX, evt.touches[i].screenY, evt.touches[i].identifier]);
+      }
+      console.log(evt.touches.length, touch_map, calibration.screenPixelToMillimeterX);
+
+      /*touch_map.sort(function(a, b){
+        if (a[0] == b[0]){
+          return a[1] - b[1]
+        }
+        return a[0] - b[0]
+      });*/
+
+      //console.log('y')
+
+      var augmented = [];
+      for (var i=0, l=evt.touches.length; i < l; i++){
+        var near = [];
+        var t = touch_map[i];
+        for(var j=0; j < l; j++){
+          var working = touch_map[j];
+          if(working[2] == t[2]){ continue; } // Ignore this point.
+          var distance = distance_between_points(t, working);
+          if (distance > MAX_DISTANCE){ continue }
+
+          near.push([distance, working[0], working[1], working[2]])
+        }
+        near.sort(function(a, b){
+          return a[0] - b[0]
+        });
+        check: for (k_=0, m_=OBJECTS.length; k_ < m_; k_++){
+          //console.log("Checking fit for ", OBJECTS[k_])
+          //console.log("do they have the same length?", near, OBJECTS[k_])
+          //if (near.length == OBJECTS[k_].length) { // same number of points
+            var passed = true;
+            var distances = [];
+            for(var i_ = 0, l_=near.length; i_ < l_; i_++){
+              var distance_checking = near[i_][0]
+              distances.push(distance_checking);
+              var bounds = OBJECTS[k_][i_];
+              //console.log('checking', bounds[0], distance_checking, bounds[1]);
+              if (! ((bounds[0] < distance_checking) && (distance_checking < bounds[1])) ) {
+                //console.log(' out of bounds.')
+                passed = false;
+              }
+
+            }
+            if (passed) {
+              console.log("OBJECT FOUND!", OBJECT_NAMES[k_], OBJECTS[k_], near);
+              document.getElementById("text").innerHTML = OBJECT_NAMES[k_];
+            }
+            else {
+              document.getElementById("text").innerHTML = distances.join(' ')
+            }
+          //}
+        }
+        augmented.push([t, near])
+        //console.log('near', near.map(function(v){return v[0]}));
+      }
+    }
+
+    p.addEventListener("touchstart", function(evt){
+      process_touches(evt)
+    }, false);
+    p.addEventListener("touchmove", function(evt){
+      //process_touches(evt);
+    }, false);
+    p.addEventListener("touchend", function(evt){
+      process_touches(evt);
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+
+  <style>
+    html, body {
+      overflow: hidden;
+    }
+    #page {
+      width: 600px;
+      height: 600px;
+      position: absolute;
+      display: block;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      background: #c653c6;
+    }
+    #text {
+      color: #c653c6;
+      position: absolute;
+      top: 600px;
+    }
+    body {
+      z-index: 0;
+      background: rgba(96, 32, 96, 0.8)
+    }
+    #calibration {
+      position: absolute;
+      top: -1px;
+      display: block;
+      width: 1px;
+      height: 1px;
+    }
+  </style>
+</head>
+<body>
+  <svg id="calibration"></svg>
+  <div id="page">&nbsp;</div>
+  <h1 id="text"></h1>
+
+  <!-- include the particular object set and screen configuration -->
+  <script src="../src/config/v1-9up/windows10-planar-PCT2235.js" />
+  <script src="../src/cofig/v1-9up/objects.js" />
+
+  <!-- include the library -->
+  <script src="../src/oor.js" />
+
+  <script>
+    //vertex distance classification
+    var p = document.getElementById("page");
+
+    p.addEventListener("touchstart", function(evt){
+      process_touches(evt)
+    }, false);
+    p.addEventListener("touchmove", function(evt){
+      process_touches(evt);
+    }, false);
+    p.addEventListener("touchend", function(evt){
+      process_touches(evt);
+    });
+    p.addEventListener("object_detected", function(evt){
+      console.debug(evt);
+      text.innerHTML = evt.object_name
+    });
+    p.addEventListener("no_object_detected", function(evt){
+      console.debug(evt);
+      text.innerHTML = '- ' + evt.pattern;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+<head>
+  <style>
+    #page {
+      width: 100%;
+      height: 100%;
+      background: #c653c6
+    }
+    .touch {
+      position:absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 7.5px;
+      background: rgba(96, 32, 96, 0.8)
+    }
+  </style>
+</head>
+<body>
+  <div id="page"></div>
+
+
+  <script>
+    //Event Logging
+    var p = document.getElementById("page");
+    console.log(new Date());
+    p.addEventListener("touchstart", function(evt){
+      console.log(evt.touches.length, evt.touches);
+    }, false);
+    p.addEventListener("touchmove", function(evt){
+      //console.log(evt);
+    }, false);
+    p.addEventListener("touchend", function(evt){
+      //console.log(evt);
+    })
+  </script>
+</body>
+</html>
