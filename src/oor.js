@@ -53,7 +53,7 @@ var process_touches = function(evt){
 	console.log('obj key', obj_key, obj_key.length);
 
 	if (OBJECTS.hasOwnProperty(obj_key)){
-			var event = new CustomEvent('object_detected', {
+			var event = new CustomEvent('object_recognized', {
 				'verticies': verticies,
 				'recognition_type': 'touch_pattern',
 				'triggering_event': evt,
@@ -62,7 +62,7 @@ var process_touches = function(evt){
 			});
 			evt.target.dispatchEvent(event)
 	} else {
-			var event = new CustomEvent('no_object_detected', {
+			var event = new CustomEvent('no_object_recognized', {
 				'verticies': {},
 				'recognition_type': 'touch_pattern',
 				'triggering_event': evt,

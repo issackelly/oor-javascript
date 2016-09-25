@@ -61,11 +61,11 @@
     p.addEventListener("touchend", function(evt){
       process_touches(evt);
     });
-    p.addEventListener("object_detected", function(evt){
+    p.addEventListener("object_recognized", function(evt){
       console.debug(evt);
       text.innerHTML = evt.object_name
     });
-    p.addEventListener("no_object_detected", function(evt){
+    p.addEventListener("no_object_recognized", function(evt){
       console.debug(evt);
       text.innerHTML = '- ' + evt.pattern;
     });

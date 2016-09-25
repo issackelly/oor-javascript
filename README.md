@@ -1,4 +1,4 @@
-# Open Object Detection
+# Open Object Recognition
 
 https://www.issackelly.com/oor
 
@@ -87,17 +87,17 @@ See [./experiments/ipad.html] or [./experiments/planar_windows10.html] for a min
 
 ### Implementation notes
 
-You can always use your fingers to test! It's less specific, but you can usually use three to move them in the right position. Play around.
+You can always use your fingers to test! It's less exact, but you can usually use three to approximate the right position. Play around.
 
 The non-iPad monitors I've tested have been less responsive than the iPad I have. We're still working on that.
 
 #### Windows 10
 
-You need to turn on touch support in the Edge browser. open "about:flags" in the browser and turn on touch events.
+You need to turn on touch support in the Edge browser. open `about:flags` in the browser and turn on touch events.
 
 https://www.thurrott.com/windows/windows-10/5043/windows-10-tip-make-microsoft-edge-work-the-way-you-want
 
-Chrome might also have touch flags, this hasn't been explored yet.
+Chrome might also have touch flags in `about:flags`, this hasn't been explored yet.
 
 #### Safari iOS
 
