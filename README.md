@@ -80,7 +80,7 @@ If we are supporting that object, then the `object_detected` event is fired.
 
 If we don't support that object, then the `no_object_detected` event is fired.
 
-See [./experiments/ipad.html] or [./experiments/planar_windows10.html] for a minimal example.
+See [iPad](./experiments/ipad.html) or [Windwows 10 Touch](./experiments/planar_windows10.html) for a minimal example.
 
 (This is still mostly a proof of concept. Implementation details like packaging and testing could and should change over time as this library evolves) 
 
