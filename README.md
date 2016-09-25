@@ -1,10 +1,14 @@
 # Open Object Detection
 
+https://www.issackelly.com/oor
+
 ### Alpha Quality
 
 This project is for object detection.
 
-Here's the idea: Place an object on a screen, the computer knows which object you put on the screen. 
+Here's the idea: Place an object on a screen, the computer knows which object you put on the screen.
+ 
+![top photo of prototype coaster object](https://www.issackelly.com/siteapi/imgix_url?url=/uploads/P9180172.JPG&w=1200)
 
 This implementation deals with fixed, preconfigured, precalibrated objects on capacitive touch screens.
 
