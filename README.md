@@ -29,17 +29,18 @@ The software works by classifying the distances between points. Each unique regi
 
 The nine dot pattern of our prototype has 5 different line segments that can be drawn by connecting any two points.
 
-![nine dots with labeled edge lengths](../static/dot-edge-lengths.jpg)
+![nine dots with labeled edge lengths](./static/dot-edge-lengths.jpg)
 
 There are some special properties when the dots are in this pattern. We can extrapolate all of these by applying Pythagorean's theorem.
 
 
 If you consider A to be of length 1.
- 
- B = √2 (B = √(A² + A²)
- C = 2  (C = 2 * A)
- D = √5 (D = √(A² + C²)
- E = 2√2 (E = 2 * B)
+
+    A = 1
+    B = √2 (B = √(A² + A²)
+    C = 2  (C = 2 * A)
+    D = √5 (D = √(A² + C²)
+    E = 2√2 (E = 2 * B)
 
 This means that it's possible to implement the whole list of objects just knowing the distance of A. This is not currently implemented in the code.
 If you're learning JavaScript or Geometry, or both, reimplementing the `classify_distance` function from one of the config files would be a good idea!
@@ -62,7 +63,7 @@ We throw out distances that don't look like they fit into A-E, and if enough are
 Once we've identified the distances between points, we then classify the distances. If they fit in proper bounds, they're given a classification (A-E)
 We sort by letter, and look up the classification in the OBJECTS list to see if we are supporting that object, and what its name is.
 
-![CDD - large isosceles triangle](../static/CDD.jpg)
+![CDD - large isosceles triangle](./static/CDD.jpg)
  
 --
 
