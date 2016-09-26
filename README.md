@@ -64,7 +64,7 @@ We throw out distances that don't look like they fit into A-E, and if enough are
 --
 
 Once we've identified the distances between points, we then classify the distances. If they fit in proper bounds, they're given a classification (A-E)
-We sort by letter, and look up the classification in the OBJECTS list to see if we are supporting that object, and what its name is.
+We sort by letter, and look up the classification in the [OBJECTS](./src/config/v1-9up/objects.js) list to see if we are supporting that object, and what its name is.
 
 ![CDD - large isosceles triangle](./static/CDD.jpg)
  
