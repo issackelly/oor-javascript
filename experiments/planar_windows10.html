@@ -72,7 +72,7 @@
     });
     p.addEventListener("no_object_recognized", function(evt){
       console.debug(evt);
-      text.innerHTML = '- ' + evt.detail.pattern;
+      text.innerHTML = evt.detail.triggering_event.touches.length +   ' points seen - ' + evt.detail.pattern;
     });
   </script>
 </body>
