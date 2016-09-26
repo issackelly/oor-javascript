@@ -42,8 +42,8 @@
 
   <!-- include the particular object set and screen configuration -->
   <script>
-    A_DISTANCE = 29.5;
-    MARGIN = 4;
+    A_DISTANCE = 25;
+    MARGIN = 3;
   </script>
   <script src="../src/config/v1-9up/objects.js"></script>
 
@@ -75,7 +75,7 @@
     });
     p.addEventListener("no_object_recognized", function(evt){
       console.debug(evt);
-      text.innerHTML = '- ' + evt.detail.pattern;
+      text.innerHTML = evt.detail.triggering_event.touches.length +   ' points seen - ' + evt.detail.pattern;
     });
   </script>
 </body>
