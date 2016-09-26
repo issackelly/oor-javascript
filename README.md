@@ -16,8 +16,8 @@ The object is recognized as a pattern of "touches", as if your fingers were in a
 
 Examples:
 
-* Four fingers in a square with sides 1.5" long, that's object *A*
-* Three fingers in a right trangle with sides 0.75" that's object *B*
+* Four fingers in a square with sides 1.5" long, that's object *1*
+* Three fingers in a right triangle with two sides 0.75" that's object *2*
  
 ## Hardware Implementation:
 
