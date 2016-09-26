@@ -51,7 +51,9 @@ This means that it's possible to implement the whole list of objects just knowin
 --
 
 A pattern with 3 verticies (touches) will have 3 edges. (2 + 1)
+
 A pattern with 4 verticies will have 6 edges. (3 + 2 + 1)
+
 A pattern with 5 verticies will have 10 edges (4 + 3 + 2 + 1)
 
 --
