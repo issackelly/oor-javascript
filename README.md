@@ -27,6 +27,8 @@ Attaching conductive feet to dots creates the pattern of touch points.
 Ideal material research for conductive feet is ongoing, but wrapping something soft, with consistent height (felt, rubber)
 with something conductive (foil, foil tape) seems to work pretty well.
 
+Here's a [PDF of the v1-9up object](./hardware/v1-9up/v1-9up.pdf). Eagle files will follow, and online orders of objects may follow.
+
 ## Software Implementation:
 
 The software works by classifying the distances between points. Each unique registered shape has a set of unique verticies and distances between verticies.
