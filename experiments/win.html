@@ -27,6 +27,13 @@
       z-index: 0;
       background: rgba(96, 32, 96, 0.8)
     }
+    #calibration {
+      position: absolute;
+      top: -1px;
+      display: block;
+      width: 1px;
+      height: 1px;
+    }
   </style>
 </head>
 <body>
@@ -34,7 +41,10 @@
   <h1 id="text"></h1>
 
   <!-- include the particular object set and screen configuration -->
-  <script src="../src/config/v1-9up/ipad-pro.js" /></script>
+  <script>
+    A_DISTANCE = 29.5;
+    MARGIN = 4;
+  </script>
   <script src="../src/config/v1-9up/objects.js"></script>
 
   <!-- include the library -->
@@ -45,7 +55,7 @@
     var p = document.getElementById("page");
 
     p.addEventListener("touchstart", function(evt){
-      process_touches(evt)
+      process_touches(evt);
       evt.preventDefault && evt.preventDefault();
       evt.stopPropagation && evt.stopPropagation();
     }, false);

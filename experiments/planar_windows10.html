@@ -37,37 +37,42 @@
   </style>
 </head>
 <body>
-  <svg id="calibration"></svg>
   <div id="page">&nbsp;</div>
   <h1 id="text"></h1>
 
   <!-- include the particular object set and screen configuration -->
-  <script src="../src/config/v1-9up/windows10-planar-PCT2235.js" />
-  <script src="../src/cofig/v1-9up/objects.js" />
+  <script src="../src/config/v1-9up/windows10-planar-PCT2235.js"></script>
+  <script src="../src/config/v1-9up/objects.js"></script>
 
   <!-- include the library -->
-  <script src="../src/oor.js" />
+  <script src="../src/oor.js"></script>
 
   <script>
     //vertex distance classification
     var p = document.getElementById("page");
 
     p.addEventListener("touchstart", function(evt){
-      process_touches(evt)
+      process_touches(evt);
+      evt.preventDefault && evt.preventDefault();
+      evt.stopPropagation && evt.stopPropagation();
     }, false);
     p.addEventListener("touchmove", function(evt){
       process_touches(evt);
+      evt.preventDefault && evt.preventDefault();
+      evt.stopPropagation && evt.stopPropagation();
     }, false);
     p.addEventListener("touchend", function(evt){
       process_touches(evt);
+      evt.preventDefault && evt.preventDefault();
+      evt.stopPropagation && evt.stopPropagation();
     });
     p.addEventListener("object_recognized", function(evt){
       console.debug(evt);
-      text.innerHTML = evt.object_name
+      text.innerHTML = evt.detail.object_name
     });
     p.addEventListener("no_object_recognized", function(evt){
       console.debug(evt);
-      text.innerHTML = '- ' + evt.pattern;
+      text.innerHTML = '- ' + evt.detail.pattern;
     });
   </script>
 </body>

@@ -78,7 +78,7 @@
       for (var i=0, l=evt.touches.length; i < l; i++){
         touch_map.push([evt.touches[i].screenX, evt.touches[i].screenY, evt.touches[i].identifier]);
       }
-      //console.log(evt.touches.length, touch_map, calibration.screenPixelToMillimeterX);
+      console.log(evt.touches.length, touch_map, calibration.screenPixelToMillimeterX);
 
       touch_map.sort(function(a, b){
         return a[2] - b[2]
@@ -96,12 +96,18 @@
 
     p.addEventListener("touchstart", function(evt){
       process_touches(evt)
+      evt.preventDefault && evt.preventDefault();
+      evt.stopPropagation && evt.stopPropagation();
     }, false);
     p.addEventListener("touchmove", function(evt){
-      //process_touches(evt);
+      process_touches(evt);
+      evt.preventDefault && evt.preventDefault();
+      evt.stopPropagation && evt.stopPropagation();
     }, false);
     p.addEventListener("touchend", function(evt){
       process_touches(evt);
+      evt.preventDefault && evt.preventDefault();
+      evt.stopPropagation && evt.stopPropagation();
     })
   </script>
 </body>

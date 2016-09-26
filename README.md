@@ -46,10 +46,7 @@ If you consider A to be of length 1.
     D = √5 (D = √(A² + C²)
     E = 2√2 (E = 2 * B)
 
-This means that it's possible to implement the whole list of objects just knowing the distance of A. This is not currently implemented in the code.
-If you're learning JavaScript or Geometry, or both, reimplementing the `classify_distance` function from one of the config files would be a good idea!
-
-Ask if you'd like help.
+This means that it's possible to implement the whole list of objects just knowing the distance of A (and have a given margin of error)
 
 --
 
@@ -76,9 +73,9 @@ We sort by letter, and look up the classification in the OBJECTS list to see if 
 The javascript implementation is meant for a touch enabled browser. You need to include the object list, and the calibration
 
 
-If we are supporting that object, then the `object_detected` event is fired.
+If we are supporting that object, then the `object_detected` event is fired, with names and other information in the `detail` attribute of the event.
 
-If we don't support that object, then the `no_object_detected` event is fired.
+If we don't support that object, then the `no_object_detected` event is fired, with names and other information in the `detail` attribute of the event.
 
 See [iPad](./experiments/ipad.html) or [Windwows 10 Touch](./experiments/planar_windows10.html) for a minimal example.
 
